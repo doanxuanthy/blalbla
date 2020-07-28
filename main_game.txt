@@ -1,0 +1,218 @@
+// hello.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+#define _CRT_SECURE_NO_WARNINGS
+#define DEBUG (1)
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+#define value_leng 4
+void create_rad_num(char *rad_num);
+int leng_num(char* data);
+int check_valid_num(char* data_in);
+int check_duplicate(char* data_in);
+int check_input(char* data_in);
+int func_hit(char* data_match, char* data_in);
+int func_blow(char* data_match, char* data_in);
+
+int main()
+{
+	char result[value_leng] ;
+	char* value_match;
+	srand((int)time(0));
+	char temp_array[100];
+	char *data_in;
+	data_in = &temp_array[0];
+	value_match = &result[0];
+	int hit = 0;
+	int blow = 0;
+	char play_again[1];
+	char *p_play_again;
+	p_play_again = &play_again[0];
+
+	printf("Descripstion: \n");
+	printf("User type 4 number to guess value. If the answer true you win. "
+		"If the answer false you can guess in again ( maximum is 5 times ) \n"
+		"The input number follow rules: \n"
+		"1. Must have 4 digit numbers \n"
+		"2. Don't have dupplicate digit number \n");
+	do
+	{
+		do
+		{
+			create_rad_num(value_match);
+		} while (!check_duplicate(value_match));
+#if (DEBUG == 1)
+		for (int i = 0; i < value_leng; i++)
+		{
+			printf("value %i: %d \n", i, *(value_match + i));
+		}
+#endif
+		int count_guess = 0;
+		do
+		{
+			do
+			{
+				printf("Please enter input number: ");
+				scanf("%s", temp_array);
+				if (check_input(data_in))
+				{
+						printf("input valid \n");
+				}
+				else
+				{
+					printf("Input not valid. Please try again \n");
+				}
+			} while (!check_input(data_in));
+			hit = func_hit(value_match, data_in);
+			blow = func_blow(value_match, data_in);
+			if (hit == value_leng)
+			{
+				printf(" You win :)) \n");
+				break;
+			}
+			else
+			{
+				printf(" You wrong.\n Your hit : %d\n Your blow: %d\n", hit, blow);
+				if (count_guess == value_leng)
+				{
+					printf(" You so stupid >.< \n");
+					printf("The answer is: ");
+					for (int i = 0; i < value_leng; i++)
+					{
+						printf("%d ",*(value_match + i));
+					}
+					printf("\n");
+
+				}
+				else {}
+			}
+			count_guess++;
+		} while (count_guess < 5);
+		printf("Do you want to play again ? (1/0) \n");
+		scanf("Enter answer: %s \n", p_play_again);
+		printf("value of play_again: %d\n", *p_play_again);
+	} while (1);
+	getchar();
+	return 0;
+}
+void create_rad_num(char *rad_num)
+{
+	for (int i = 0; i < value_leng; i++)
+	{
+		*(rad_num + i) = (char)(rand() % 10);// 48 is convert char to de
+	}
+}
+int leng_num(char* data)
+{
+	int length = 0;
+	for (int i = 0; *(data + i) != '\0'; i++)
+	{
+		length++;
+	}
+	return length;
+}
+int check_valid_num(char* data_in)
+{
+	int result = 1; // number is valid
+	int length_num = leng_num(data_in);
+	if (length_num == value_leng)
+	{
+		for (int i = 0; *(data_in + i) != '\0'; i++)
+		{
+			if ((*(data_in + i) > 47 ) && (*(data_in + i) < 58))
+			{
+				//number is valid
+				//printf("number is valid \n");
+			}
+			else
+			{
+				//printf("number is not valid \n");
+				result = 0;
+			}
+		}
+	}
+	else 
+	{
+		result = 0;
+	}
+	return result;
+}
+int check_duplicate(char* data_in)
+{
+	int result = 1; // number is valid
+	for (int i = 0; i < value_leng; i++)
+	{
+		for (int j = i + 1; j < value_leng; j++)
+		{
+			if ((*(data_in + i)) == (*(data_in + j)))
+			{
+				result = 0;
+			}
+			else 
+			{}
+		}
+	}
+	return result;
+}
+int check_input(char* data_in)
+{
+	int result = 1;
+	result = check_valid_num(data_in);
+	if (result == 1)
+	{
+		result = check_duplicate(data_in);
+	}
+	else 
+	{
+		//printf("check_valid_num is not valid \n");
+	}
+	return result;
+}
+int func_hit(char* data_match, char* data_in)
+{
+	int hit = 0;
+	for (int i = 0; i < value_leng; i++)
+	{
+#if (DEBUG == 1)
+		printf("data match: %d \n", *(data_match + i));
+		printf("data in: %d \n", (*(data_in + i) - 48));
+#endif
+		if (*(data_match + i) == (*(data_in + i) - 48 ))
+		{
+			hit++;
+		}
+		else {}
+	}
+	return hit;
+}
+int func_blow(char* data_match, char* data_in)
+{
+	int blow = 0;
+	for (int i = 0; i < value_leng; i++)
+	{
+		for (int j = 0; j < value_leng; j++)
+		{
+			if (i != j)
+			{
+				if (*(data_match + i) == (*(data_in + j) - 48))
+				{
+					blow++;
+				}
+				else {}
+			}
+			else {}
+		}
+	}
+	return blow;
+}
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

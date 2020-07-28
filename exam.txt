@@ -1,0 +1,98 @@
+3.2
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+	/* Define prototype */
+	int circle(int, int);
+	int triangle(int, int);
+	int rectangle(int, int);
+	int oval(int, int);
+	int (*pFunc[4]) (int, int) = { circle, triangle, rectangle, oval };
+	struct fig {
+		int kind; /* Circle=0, Triangle=1, Rectangle=2 */
+		int height; /* Height of figure */
+		int width; /* Width of figure */
+	};
+	int getAreaSize2(struct fig *f1)
+	{
+		int s;
+		s = (*pFunc[f1->kind])(f1->height, f1->width );
+		return s;
+	}
+	int circle(int height, int nouse)
+	{
+		return ((height / 2) * (height / 2) * 3);
+	}
+	int triangle(int height, int width)
+	{
+		return (height * width / 2);
+	}
+	int rectangle(int height, int width)
+	{
+		return (height * width);
+	}
+	int oval(int height, int width)
+	{
+		return ((height/2) * (width/2)*3);
+	}
+	void main()
+	{
+		struct fig f1;
+		int k, h, w;
+		printf("Input figure kind:");
+		scanf("%d", &k);
+		printf("Input height width:");
+		scanf("%d %d", &h, &w);
+		f1.kind = k;
+		f1.height = h;
+		f1.width = w;
+		printf("%d\n", getAreaSize2(&f1));
+	}
+////////////////////////////////////////////////
+3-3
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+const int PI = 3;
+int circle(int, int);
+int rectangle(int, int);
+int (*pFunc[2])(int, int) = { circle, rectangle };
+struct fig {
+	int kind;
+	int height;
+	int width;
+};
+int getcircumference(struct fig* f1)
+{
+	int c;
+	c = (pFunc[f1->kind])(f1->height, f1->width);
+	return c;
+}
+int circle(int height, int width)
+{
+	return (2 * height * PI);
+}
+int rectangle(int height, int width)
+{
+	return ((height + width) * 2);
+}
+void main()
+{
+	struct fig f1;
+	int k, h;
+	int w = 0;
+	printf("Input figure kind:");
+	scanf("%d", &k);
+	if (0 == k) {
+		printf("Input radius:");
+		scanf("%d", &h);
+	}
+	else {
+		printf("Input height width:");
+		scanf("%d %d", &h, &w);
+	}
+	f1.kind = k;
+	f1.height = h;
+	f1.width = w;
+	printf("circumference: %d\n", getcircumference(&f1));
+}
+//////////////////////////////////////////////////////////
