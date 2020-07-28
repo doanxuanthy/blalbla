@@ -96,3 +96,34 @@ void main()
 	printf("circumference: %d\n", getcircumference(&f1));
 }
 //////////////////////////////////////////////////////////
+// linked list.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+int f_sum(int c, int d);
+void print_value(int c, int d, int (*func) (int, int));
+
+int main(void) {			//Make main routine
+	int (*p) (int, int, int*);	//Declare function pointer in the main routine
+	int (*k) (int, int);
+	int a = 2;
+	int b = 5;
+	int ans;
+	p = print_value;
+	k = f_sum;
+	ans = (*p)(a, b, );
+	printf("%d", ans);
+}
+
+int f_sum(int c, int d) {	//Make subroutine f_sum
+	int r;
+	r = c + d;
+	return (r);
+}
+void print_value(int c, int d, int (*func) (int, int)) {	//Make subroutine print_value
+	int r;
+	r = func((c + 1), (d + 1));		//function f_sum is call by function pointer
+	printf("value is %d: ", r);
+	return 0;
+}
+
