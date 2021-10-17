@@ -1,0 +1,41 @@
+{
+  "sourcePath": "D:/AWS/XX/amazon-freertos",
+  "vendorPath": "{{testData.sourcePath}}/vendors/renesas/boards/rx65n-cloud-kit-uart-sx-ulpgn",
+  "buildTool": {
+    "name": "e2studio",
+    "version": "2021-07",
+    "command": [
+      "D:/AWS/XX/scripts/build.bat {{testData.sourcePath}} {{enableTests}}"
+    ]
+  },
+  "flashTool": {
+    "name": "RFP",
+    "version": "3.8",
+    "command": [
+      "D:/AWS/XX/scripts/flash.bat {{testData.sourcePath}} {{buildImageName}}"
+    ],
+    "buildImageInfo" : {
+      "testsImageName": "test",
+      "demosImageName": "demo"
+    }
+  },
+  "clientWifiConfig": {
+    "wifiSSID": "Minh Thu",
+    "wifiPassword": "susisusi",
+    "wifiSecurityType": "eWiFiSecurityWPA2"
+  },
+  "testWifiConfig": {
+    "wifiSSID": "Minh Thu",
+    "wifiPassword": "susisusi",
+    "wifiSecurityType": "eWiFiSecurityWPA2"
+  },
+  "echoServerCertificateConfiguration": {
+    "certificateGenerationMethod": "Automatic",
+    "eccCurveFormat": "P224"
+  },
+  "echoServerConfiguration": {
+    "securePortForSecureSocket": 33333,
+    "insecurePortForSecureSocket": 33334,
+    "insecurePortForWiFi": 33335
+  }
+}
