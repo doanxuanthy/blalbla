@@ -1,0 +1,61 @@
+[
+  {
+    "id": "pool01",
+    "sku": "RX65N Cloud Kit",
+    "features": [
+      {
+        "name": "WIFI",
+        "value": "Yes"
+      },
+      {
+        "name": "Cellular",
+        "value": "No"
+      },
+      {
+        "name": "OTA",
+        "value": "No",
+        "configs": [
+          {
+            "name": "OTADataPlaneProtocol",
+            "value": "Both"
+          }
+        ]
+      },
+      {
+        "name": "BLE",
+        "value": "No"
+      },
+      {
+        "name": "TCP/IP",
+        "value": "Offloaded"
+      },
+      {
+        "name": "TLS",
+        "value": "Yes"
+      },
+      {
+        "name": "PKCS11",
+        "value": "Both"
+      },
+      {
+        "name": "KeyProvisioning",
+        "value": "Import"
+      }
+    ],
+    "devices": [
+      {
+        "id": "dev01",
+        "connectivity": {
+          "protocol": "uart",
+          "serialPort": "COM4"
+        },
+        "identifiers": [
+          {
+            "name": "serialNo",
+            "value": "<serialNo-value>"
+          }
+        ]
+      }
+    ]
+  }
+]
